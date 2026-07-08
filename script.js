@@ -2,10 +2,14 @@ let x = 10;
 let y = 10;
 let img = "pinguim.png";
 
-let frameHeight = 180 / 3;
-let frameWidth = 600 / 8;
-// top row = 0, mid row = 1, bot row = 2
+const slotWidth = 60; // how far apart each frame starts
+const frameHeight = 60;
+const frameWidth = 60; // how much is cropped
+const row = 1;
 
+let frame = 7;
+// top row = 0, mid row = 1, bot row = 2
+let sourceY = row * frameHeight;
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -14,6 +18,9 @@ let rightPressed = false;
 let leftPressed = false;
 let upPressed = false;
 let downPressed = false;
+
+let frameTimer = 0; // how many game loop frames have passed
+let frameDelay = 8; // how long to wait before switching to next sprite frame
 
 const image = new Image();
 image.src = img;
@@ -27,6 +34,17 @@ image.src = img;
 // draw();
 
 function gameLoop() {
+    let isMoving = rightPressed || leftPressed || upPressed || downPressed;
+
+    if (isMoving) {
+        updateFrame();
+    }
+    else {
+        frame = 0;
+    }
+
+    let sourceX = frame * slotWidth;
+
     if (rightPressed) x += 2;
     if (leftPressed) x -= 2;
     if (upPressed) y -= 2;
@@ -36,16 +54,32 @@ function gameLoop() {
     // ctx.fillStyle = "rgba(255, 0, 157, 1)";
     // ctx.fillRect(x, y, 50, 50);
 
-    let sourceY = frameHeight * 1;
+    ctx.drawImage(
+        image, 
+        sourceX, sourceY, frameWidth, frameHeight, 
+        x, y, frameWidth, frameHeight);
 
-    let frame = 0;
-    let sourceX = frame * frameWidth;
-
-    ctx.drawImage(image, sourceX, sourceY, frameWidth, frameHeight, x, y, frameWidth, frameHeight);
+        ctx.strokeStyle = "red";
+        ctx.strokeRect(x, y, frameWidth, frameHeight);
 
     requestAnimationFrame(gameLoop);
 }
 gameLoop();
+
+function updateFrame() {
+    frameTimer++;
+
+    if (frameTimer >= frameDelay) {
+        if (frame < 7) {
+            frame++;
+        } else {
+            frame = 0;
+        }
+
+        frameTimer = 0;
+    }
+}
+
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowRight") {
