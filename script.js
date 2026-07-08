@@ -25,6 +25,20 @@ let frameDelay = 8; // how long to wait before switching to next sprite frame
 const image = new Image();
 image.src = img;
 
+const obstacle = {
+    x: 100,
+    y: 100,
+    width: 60,
+    height: 40
+}
+
+const player = {
+    x: x,
+    y: y,
+    width: frameWidth,
+    height: frameHeight
+}
+
 // function draw() {
 //     ctx.fillRect(10, 10, 50, 50);
 
@@ -34,6 +48,9 @@ image.src = img;
 // draw();
 
 function gameLoop() {
+    let prevX = player.x;
+    let prevY = player.y;
+
     let isMoving = rightPressed || leftPressed || upPressed || downPressed;
 
     if (isMoving) {
@@ -49,10 +66,21 @@ function gameLoop() {
     if (leftPressed) x -= 2;
     if (upPressed) y -= 2;
     if (downPressed) y += 2;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    player.x = x;
+    player.y = y;
+
+    if (isColliding(player, obstacle)) {
+        x = prevX;
+        y = prevY;
+        player.x = x;
+        player.y = y;
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // erase old sprite
     
-    // ctx.fillStyle = "rgba(255, 0, 157, 1)";
-    // ctx.fillRect(x, y, 50, 50);
+    ctx.fillStyle = "gray";
+    ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 
     ctx.drawImage(
         image, 
@@ -80,6 +108,14 @@ function updateFrame() {
     }
 }
 
+function isColliding(a, b) {
+    return (
+        a.x + a.width > b.x &&
+        b.x + b.width > a.x &&
+        a.y + a.height > b.y &&
+        b.y + b.height > a.y
+    )
+}
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowRight") {
