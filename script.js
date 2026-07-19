@@ -17,6 +17,15 @@ let sourceY = row * frameHeight;
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+
+window.addEventListener("resize", resizeCanvas);
+
 let rightPressed = false;
 let leftPressed = false;
 let upPressed = false;
@@ -28,12 +37,12 @@ let frameDelay = 8; // how long to wait before switching to next sprite frame
 const image = new Image();
 image.src = img;
 
-const obstacle = {
-    x: 100,
-    y: 100,
-    width: 60,
-    height: 40
-}
+// const obstacle = {
+//     x: 100,
+//     y: 100,
+//     width: 60,
+//     height: 40
+// }
 
 const player = {
     x: x,
@@ -73,19 +82,19 @@ function gameLoop() {
     player.x = x;
     player.y = y;
 
-    if (isColliding(player, obstacle)) {
-        x = prevX;
-        y = prevY;
-        player.x = x;
-        player.y = y;
-    }
+    // if (isColliding(player, obstacle)) {
+    //     x = prevX;
+    //     y = prevY;
+    //     player.x = x;
+    //     player.y = y;
+    // }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height); // erase old sprite
 
     drawMap();
 
-    ctx.fillStyle = "gray";
-    ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+    // ctx.fillStyle = "gray";
+    // ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 
     ctx.drawImage(
         image, 
