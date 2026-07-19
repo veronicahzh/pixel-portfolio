@@ -2,6 +2,9 @@ let x = 10;
 let y = 10;
 let img = "pinguim.png";
 
+const tileset = new Image();
+tileset.src = "placeholder_tileset.png";
+
 const slotWidth = 60; // how far apart each frame starts
 const frameHeight = 60;
 const frameWidth = 60; // how much is cropped
@@ -78,7 +81,9 @@ function gameLoop() {
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height); // erase old sprite
-    
+
+    drawMap();
+
     ctx.fillStyle = "gray";
     ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 
@@ -93,6 +98,30 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 gameLoop();
+
+function drawMap() {
+    for (let i = 0; i < mapData.length; i++) {
+        const tile = mapData[i];
+
+        if (tile === 0) continue;
+
+        const col = i % mapWidth;
+        const row = Math.floor(i / mapWidth);
+
+        const screenX = col * tileSize;
+        const screenY = row * tileSize;
+
+        const tileIndex = tile - 1;
+        const tileSrcX = tileIndex * tileSize;
+        const tileSrcY = 0;
+
+        ctx.drawImage(
+            tileset,
+            tileSrcX, tileSrcY, tileSize, tileSize,
+            screenX, screenY, tileSize, tileSize
+        )
+    }
+}
 
 function updateFrame() {
     frameTimer++;
