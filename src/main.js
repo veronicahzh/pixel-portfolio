@@ -8,6 +8,8 @@ const canvasSetup = setupCanvas("canvas");
 const canvas = canvasSetup.canvas;
 const ctx = canvasSetup.ctx;
 
+ctx.imageSmoothingEnabled = false;
+
 const tileset = loadImage("placeholder_tileset.png");
 const playerImage = loadImage("pinguim.png");
 const player = createPlayer(playerImage);
