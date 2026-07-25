@@ -1,6 +1,10 @@
 import { mapData, mapWidth, tileSize } from "../data/mapData.js";
 
 export function drawMap(ctx, tileset) {
+    if (!tileset.complete || tileset.width === 0) return;
+
+    const tilesetColumns = Math.floor(tileset.width / tileSize);
+
     for (let i = 0; i < mapData.length; i++) {
         const tile = mapData[i];
 
@@ -13,8 +17,8 @@ export function drawMap(ctx, tileset) {
         const screenY = row * tileSize;
 
         const tileIndex = tile - 1;
-        const tileSrcX = tileIndex * tileSize;
-        const tileSrcY = 0;
+        const tileSrcX = (tileIndex % tilesetColumns) * tileSize;
+        const tileSrcY = Math.floor(tileIndex / tilesetColumns) * tileSize;
 
         ctx.drawImage(
             tileset,
