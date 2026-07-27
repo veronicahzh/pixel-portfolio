@@ -15,6 +15,7 @@ const playerImage = loadImage("pinguim.png");
 const player = createPlayer(playerImage);
 
 const bookshelfImage = loadImage("bookshelf.png");
+const resumeDeskImage = loadImage("resume_desk.png");
 
 setupInput();
 
@@ -25,6 +26,7 @@ function gameLoop() {
 
     drawMap(ctx, tileset);
     ctx.drawImage(bookshelfImage, 239, 35, 64, 64);
+    ctx.drawImage(resumeDeskImage, 249, 125, 64, 48);
     drawPlayer(ctx, player);
 
     requestAnimationFrame(gameLoop);
