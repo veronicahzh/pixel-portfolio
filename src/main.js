@@ -25,8 +25,8 @@ function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     drawMap(ctx, tileset);
-    ctx.drawImage(bookshelfImage, 239, 32, 64, 64);
-    ctx.drawImage(resumeDeskImage, 240, 111, 64, 48);
+    ctx.drawImage(bookshelfImage, 382, 34, 64, 64);
+    ctx.drawImage(resumeDeskImage, 382, 158, 64, 48);
     drawPlayer(ctx, player);
 
     requestAnimationFrame(gameLoop);
