@@ -45,16 +45,16 @@
                  "y":44.4423808296616
                 }, 
                 {
-                 "height":68.2134169027874,
+                 "height":68.6618473960609,
                  "id":3,
                  "name":"trigger_about",
                  "opacity":1,
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":67.6365714617721,
-                 "x":377.817005066518,
-                 "y":33.1239652875272
+                 "width":136.246436932624,
+                 "x":312.794583541854,
+                 "y":34.0208262740743
                 }, 
                 {
                  "height":35.2818565032279,
@@ -106,19 +106,6 @@
                  "y":206.279780829287
                 }, 
                 {
-                 "gid":31,
-                 "height":64,
-                 "id":11,
-                 "name":"",
-                 "opacity":1,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":381.746046705131,
-                 "y":97.8396101118108
-                }, 
-                {
                  "gid":34,
                  "height":80,
                  "id":12,
@@ -130,6 +117,19 @@
                  "width":96,
                  "x":35.2610052799479,
                  "y":113.324022346369
+                }, 
+                {
+                 "gid":35,
+                 "height":64,
+                 "id":13,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":318.511210762332,
+                 "y":98.3677130044843
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -138,7 +138,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":13,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",
