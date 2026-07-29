@@ -16,6 +16,7 @@ const player = createPlayer(playerImage);
 
 const bookshelfImage = loadImage("bookshelf.png");
 const resumeDeskImage = loadImage("resume_desk.png");
+const deskImage = loadImage("desk.png");
 
 setupInput();
 
@@ -25,6 +26,7 @@ function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     drawMap(ctx, tileset);
+    ctx.drawImage(deskImage, 35, 33, 96, 80);
     ctx.drawImage(bookshelfImage, 382, 34, 64, 64);
     ctx.drawImage(resumeDeskImage, 382, 158, 64, 48);
     drawPlayer(ctx, player);
