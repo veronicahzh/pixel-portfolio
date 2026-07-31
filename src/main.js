@@ -17,6 +17,7 @@ const player = createPlayer(playerImage);
 const bookshelfImage = loadImage("bookshelf2.png");
 const resumeDeskImage = loadImage("resume_desk.png");
 const deskImage = loadImage("desk.png");
+const phoneDeskImage = loadImage("phone_desk.png");
 
 setupInput();
 
@@ -28,6 +29,7 @@ function gameLoop() {
     drawMap(ctx, tileset);
     ctx.drawImage(deskImage, 35, 33, 96, 80);
     ctx.drawImage(bookshelfImage, 319, 34, 128, 64);
+    ctx.drawImage(phoneDeskImage, 35, 159, 64, 48);
     ctx.drawImage(resumeDeskImage, 382, 158, 64, 48);
     drawPlayer(ctx, player);
 
