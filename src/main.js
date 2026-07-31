@@ -27,8 +27,8 @@ function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     drawMap(ctx, tileset);
-    ctx.drawImage(deskImage, 35, 33, 96, 80);
-    ctx.drawImage(bookshelfImage, 319, 34, 128, 64);
+    ctx.drawImage(deskImage, 35, 28, 96, 80);
+    ctx.drawImage(bookshelfImage, 317, 20, 128, 64);
     ctx.drawImage(phoneDeskImage, 35, 159, 64, 48);
     ctx.drawImage(resumeDeskImage, 382, 158, 64, 48);
     drawPlayer(ctx, player);
