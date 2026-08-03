@@ -57,16 +57,16 @@
                  "y":16.9007958384646
                 }, 
                 {
-                 "height":41.0676379453339,
+                 "height":46.7351117976704,
                  "id":4,
                  "name":"trigger_contact",
                  "opacity":1,
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":71.2291732293917,
+                 "width":69.6834985423908,
                  "x":32.3309217403098,
-                 "y":164.68384746283
+                 "y":159.016373610493
                 }, 
                 {
                  "height":50.4788644468466,
@@ -119,19 +119,6 @@
                  "y":83.7839833741502
                 }, 
                 {
-                 "gid":36,
-                 "height":48,
-                 "id":14,
-                 "name":"",
-                 "opacity":1,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":34.5364865842193,
-                 "y":206.975338106603
-                }, 
-                {
                  "gid":37,
                  "height":48,
                  "id":15,
@@ -143,6 +130,19 @@
                  "width":64,
                  "x":380.101910828025,
                  "y":206.165605095541
+                }, 
+                {
+                 "gid":38,
+                 "height":48,
+                 "id":16,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":34.4640115410377,
+                 "y":205.359163274769
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -151,7 +151,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":16,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",
