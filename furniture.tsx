@@ -19,7 +19,7 @@
  <tile id="6">
   <image source="resume_desk2.png" width="64" height="48"/>
  </tile>
- <tile id="7">
-  <image source="phone_desk2.png" width="64" height="48"/>
+ <tile id="8">
+  <image source="phone_desk3.png" width="64" height="48"/>
  </tile>
 </tileset>
