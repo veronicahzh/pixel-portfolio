@@ -15,7 +15,7 @@ const playerImage = loadImage("pinguim.png");
 const player = createPlayer(playerImage);
 
 const bookshelfImage = loadImage("bookshelf2.png");
-const resumeDeskImage = loadImage("resume_desk.png");
+const resumeDeskImage = loadImage("resume_desk2.png");
 const deskImage = loadImage("desk.png");
 const phoneDeskImage = loadImage("phone_desk.png");
 
@@ -30,7 +30,7 @@ function gameLoop() {
     ctx.drawImage(deskImage, 35, 28, 96, 80);
     ctx.drawImage(bookshelfImage, 317, 20, 128, 64);
     ctx.drawImage(phoneDeskImage, 35, 159, 64, 48);
-    ctx.drawImage(resumeDeskImage, 382, 158, 64, 48);
+    ctx.drawImage(resumeDeskImage, 380, 158, 64, 48);
     drawPlayer(ctx, player);
 
     requestAnimationFrame(gameLoop);
