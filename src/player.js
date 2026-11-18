@@ -1,32 +1,59 @@
-const slotWidth = 60;
-const frameHeight = 60;
-const frameWidth = 60;
-const row = 1;
-const speed = 2;
-const frameDelay = 8;
-const maxFrame = 7;
+import { loadImage } from "./assets.js";
 
-export function createPlayer(image) {
+const speed = 2;
+const walkDelay = 6;
+const idleDelay = 14;
+
+// Each character: where its idle and walk frames are, and which way the art faces.
+const characters = {
+    veronica: {
+        size: 32,
+        idle: { image: "veronica_idle.png", columns: 1, frames: 1 },
+        walk: { image: "veronica_walk.png", columns: 3, frames: 8 },
+        facesRight: true
+    },
+    penguin: {
+        size: 60,
+        idle: { image: "pinguim.png", columns: 10, frames: 4, row: 0 },
+        walk: { image: "pinguim.png", columns: 10, frames: 8, row: 1 },
+        facesRight: true
+    }
+};
+
+function loadAnimation(animation) {
+    return { ...animation, image: loadImage(animation.image) };
+}
+
+export function createPlayer(name) {
+    const character = characters[name] || characters.veronica;
+
     return {
-        x: 10,
-        y: 10,
-        width: frameWidth,
-        height: frameHeight,
-        image: image,
-        frame: maxFrame,
-        frameTimer: 0,
-        sourceY: row * frameHeight
+        x: 224,
+        y: 130,
+        size: character.size,
+        idle: loadAnimation(character.idle),
+        walk: loadAnimation(character.walk),
+        facesRight: character.facesRight,
+        facingLeft: false,
+        moving: false,
+        frame: 0,
+        frameTimer: 0
     };
 }
 
 export function updatePlayer(player, keys) {
     const isMoving = keys.right || keys.left || keys.up || keys.down;
 
-    if (isMoving) {
-        updateFrame(player);
-    } else {
+    if (isMoving !== player.moving) {
+        player.moving = isMoving;
         player.frame = 0;
+        player.frameTimer = 0;
     }
+
+    if (keys.right) player.facingLeft = false;
+    if (keys.left) player.facingLeft = true;
+
+    updateFrame(player);
 
     if (keys.right) player.x += speed;
     if (keys.left) player.x -= speed;
@@ -35,28 +62,30 @@ export function updatePlayer(player, keys) {
 }
 
 export function drawPlayer(ctx, player) {
-    const sourceX = player.frame * slotWidth;
+    const animation = player.moving ? player.walk : player.idle;
+    const size = player.size;
+    const column = player.frame % animation.columns;
+    const row = (animation.row || 0) + Math.floor(player.frame / animation.columns);
+    const flip = player.facingLeft === player.facesRight;
 
-    ctx.drawImage(
-        player.image,
-        sourceX, player.sourceY, frameWidth, frameHeight,
-        player.x, player.y, frameWidth, frameHeight
-    );
-
-    ctx.strokeStyle = "red";
-    ctx.strokeRect(player.x, player.y, frameWidth, frameHeight);
+    ctx.save();
+    if (flip) {
+        ctx.translate(player.x + size, player.y);
+        ctx.scale(-1, 1);
+    } else {
+        ctx.translate(player.x, player.y);
+    }
+    ctx.drawImage(animation.image, column * size, row * size, size, size, 0, 0, size, size);
+    ctx.restore();
 }
 
 function updateFrame(player) {
+    const animation = player.moving ? player.walk : player.idle;
+    const delay = player.moving ? walkDelay : idleDelay;
+
     player.frameTimer++;
-
-    if (player.frameTimer >= frameDelay) {
-        if (player.frame < maxFrame) {
-            player.frame++;
-        } else {
-            player.frame = 0;
-        }
-
+    if (player.frameTimer >= delay) {
+        player.frame = (player.frame + 1) % animation.frames;
         player.frameTimer = 0;
     }
 }

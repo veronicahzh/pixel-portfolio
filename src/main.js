@@ -10,8 +10,9 @@ const ctx = canvasSetup.ctx;
 
 ctx.imageSmoothingEnabled = false;
 
-const playerImage = loadImage("pinguim.png");
-const player = createPlayer(playerImage);
+// add ?player=penguin to the address to test with the penguin
+const playerName = new URLSearchParams(window.location.search).get("player") || "veronica";
+const player = createPlayer(playerName);
 
 // Every visit shows one of the three cats
 const catVariants = [
