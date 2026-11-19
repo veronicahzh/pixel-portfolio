@@ -57,12 +57,24 @@ function drawRoom(map) {
     }
 }
 
+function getCollisionBoxes(map) {
+    const layer = map.layers.find((layer) => layer.name === "collision");
+    if (!layer) return [];
+    return layer.objects.map((object) => ({
+        x: object.x,
+        y: object.y,
+        width: object.width,
+        height: object.height
+    }));
+}
+
 async function start() {
     const map = await loadTiledMap("cozy_room.tmj");
+    const boxes = getCollisionBoxes(map);
     setupInput();
 
     function gameLoop() {
-        updatePlayer(player, keys);
+        updatePlayer(player, keys, boxes);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawRoom(map);
         requestAnimationFrame(gameLoop);

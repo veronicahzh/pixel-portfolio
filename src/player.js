@@ -1,5 +1,7 @@
 import { loadImage } from "./assets.js";
+import { isColliding } from "./collision.js";
 
+const debug = new URLSearchParams(window.location.search).has("debug");
 const speed = 2;
 const walkDelay = 6;
 const idleDelay = 14;
@@ -41,7 +43,7 @@ export function createPlayer(name) {
     };
 }
 
-export function updatePlayer(player, keys) {
+export function updatePlayer(player, keys, boxes) {
     const isMoving = keys.right || keys.left || keys.up || keys.down;
 
     if (isMoving !== player.moving) {
@@ -55,10 +57,10 @@ export function updatePlayer(player, keys) {
 
     updateFrame(player);
 
-    if (keys.right) player.x += speed;
-    if (keys.left) player.x -= speed;
-    if (keys.up) player.y -= speed;
-    if (keys.down) player.y += speed;
+    if (keys.right && !hitsAnything(getFeetBox(player, player.x + speed, player.y), boxes)) player.x += speed;
+    if (keys.left && !hitsAnything(getFeetBox(player, player.x - speed, player.y), boxes)) player.x -= speed;
+    if (keys.up && !hitsAnything(getFeetBox(player, player.x, player.y - speed), boxes)) player.y -= speed;
+    if (keys.down && !hitsAnything(getFeetBox(player, player.x, player.y + speed), boxes)) player.y += speed;
 }
 
 export function drawPlayer(ctx, player) {
@@ -77,6 +79,30 @@ export function drawPlayer(ctx, player) {
     }
     ctx.drawImage(animation.image, column * size, row * size, size, size, 0, 0, size, size);
     ctx.restore();
+
+    if (debug) {
+        const feet = getFeetBox(player, player.x, player.y);
+        ctx.strokeStyle = "red";
+        ctx.strokeRect(feet.x, feet.y, feet.width, feet.height);
+    }
+}
+
+function getFeetBox(player, x, y) {
+    return {
+        x: x + 10,
+        y: y + 26,
+        width: 12,
+        height: 5
+    };
+}
+
+function hitsAnything(box, boxes) {
+    for (const other of boxes) {
+        if (isColliding(box, other)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function updateFrame(player) {
