@@ -1,7 +1,8 @@
 import { loadImage } from "./assets.js";
 import { setupCanvas } from "./canvas.js";
+import { isColliding } from "./collision.js";
 import { setupInput, keys } from "./input.js";
-import { createPlayer, drawPlayer, updatePlayer } from "./player.js";
+import { createPlayer, drawPlayer, updatePlayer, getFeetBox } from "./player.js";
 import { loadTiledMap, lookupGid, drawTileLayer, drawObject } from "./tiled.js";
 
 const canvasSetup = setupCanvas("canvas");
@@ -80,15 +81,32 @@ function getInteractionZones(map) {
     }));
 }
 
+function findZone(player, zones) {
+    for (const zone of zones) {
+        if (isColliding(getFeetBox(player, player.x, player.y), zone)) {
+            return zone;
+        }
+    }
+    return null;
+}
+
 async function start() {
     const map = await loadTiledMap("cozy_room.tmj");
     const boxes = getCollisionBoxes(map);
     const zones = getInteractionZones(map);
-    console.log(zones);
     setupInput();
 
+    let lastZone = null;
     function gameLoop() {
         updatePlayer(player, keys, boxes);
+
+        const nearby = findZone(player, zones);
+        const name = nearby ? nearby.name : null;
+        if (name !== lastZone) {
+            console.log("now at: ", name);
+            lastZone = name;
+        }
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawRoom(map);
         requestAnimationFrame(gameLoop);

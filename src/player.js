@@ -87,7 +87,7 @@ export function drawPlayer(ctx, player) {
     }
 }
 
-function getFeetBox(player, x, y) {
+export function getFeetBox(player, x, y) {
     return {
         x: x + 10,
         y: y + 26,
