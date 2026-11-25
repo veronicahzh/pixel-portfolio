@@ -68,9 +68,23 @@ function getCollisionBoxes(map) {
     }));
 }
 
+function getInteractionZones(map) {
+    const layer = map.layers.find((layer) => layer.name === "interactions");
+    if (!layer) return [];
+    return layer.objects.map((object) => ({
+        name: object.name,
+        x: object.x,
+        y: object.y,
+        width: object.width,
+        height: object.height
+    }));
+}
+
 async function start() {
     const map = await loadTiledMap("cozy_room.tmj");
     const boxes = getCollisionBoxes(map);
+    const zones = getInteractionZones(map);
+    console.log(zones);
     setupInput();
 
     function gameLoop() {
