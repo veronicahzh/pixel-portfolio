@@ -22,6 +22,7 @@ const catVariants = [
     "cozy/props/cat_bed_white_longhair.png"
 ];
 const randomCat = loadImage(catVariants[Math.floor(Math.random() * catVariants.length)]);
+const promptImage = loadImage("desktop/ui/prompt_e.png");
 
 function imageFor(map, object) {
     const tile = lookupGid(map, object.gid);
@@ -90,6 +91,13 @@ function findZone(player, zones) {
     return null;
 }
 
+function drawPrompt(player) {
+    const x = Math.round(player.x + player.size / 2 - promptImage.width / 2);
+    const y = Math.round(player.y - promptImage.height);
+    const bob = Math.round(Math.sin(Date.now() / 250));
+    ctx.drawImage(promptImage, x, y + bob);
+}
+
 async function start() {
     const map = await loadTiledMap("cozy_room.tmj");
     const boxes = getCollisionBoxes(map);
@@ -109,6 +117,11 @@ async function start() {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawRoom(map);
+
+        if (nearby) {
+            drawPrompt(player);
+        }
+
         requestAnimationFrame(gameLoop);
     }
 
